@@ -8,6 +8,7 @@ function App() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(0);
   const [operation, setOperation] = useState(null);
+  const [hist, setHist] = useState([]);
 
   function addendToDisplay(value) {
     // Handle adding the number or operator to the display
@@ -50,14 +51,17 @@ function App() {
     setCurrent(result);
     setPrev(result);
     setOperation(null);
+
+    let resultStr = `${prev} ${operation} ${current} = ${result}`;
+    setHist((hist) => [...hist, resultStr]);
   }
 
   function toogleSidebar() {
     const sidebar = document.querySelector("#history");
-    if (sidebar.style.left == "-16rem") {
+    if (sidebar.style.left === "-18rem") {
       sidebar.style.left = "0rem";
     } else {
-      sidebar.style.left = "-16rem";
+      sidebar.style.left = "-18rem";
     }
   }
 
@@ -69,10 +73,16 @@ function App() {
       >
         <div
           id="history"
-          className="bg-white rounded-r-xl shadow-lg fixed -left-64 w-64 h-screen duration-200 ease-in-out"
-        ></div>
+          className="bg-white rounded-r-xl shadow-lg fixed -left-72 w-72 h-screen duration-300 ease-in-out"
+        >
+          <ul>
+            {hist.map((histItem, index) => (
+              <li key={index} className="m-2 bg-slate-300 p-2 rounded-lg">{histItem}</li>
+            ))}
+          </ul>
+        </div>
         <button
-          className="bg-slate-200 rounded-xl flex top-2 right-2 fixed p-2 px-4"
+          className="bg-slate-200 rounded-xl flex top-3 right-3 fixed p-2 px-4"
           onClick={toogleSidebar}
         >
           <svg

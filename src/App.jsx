@@ -1,0 +1,113 @@
+import "./App.css";
+import { useState } from "react";
+import Numbtn from "./components/numbtn";
+import Equalbtn from "./components/equalbtn";
+import Specialbtn from "./components/specialbtn";
+
+function App() {
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState(0);
+  const [operation, setOperation] = useState(null);
+
+  function addendToDisplay(value) {
+    // Handle adding the number or operator to the display
+    if (!isNaN(value) || value === ".") {
+      setCurrent(current === 0 ? value : current + value);
+    } else {
+      setPrev(current);
+      setCurrent(0);
+      setOperation(value);
+    }
+  }
+
+  function clearDisplay() {
+    setCurrent(0);
+    setPrev(0);
+    setOperation(null);
+  }
+
+  function calculateResult() {
+    let result;
+    switch (operation) {
+      case "+":
+        result = parseFloat(prev) + parseFloat(current);
+        break;
+      case "-":
+        result = parseFloat(prev) - parseFloat(current);
+        break;
+      case "X":
+        result = parseFloat(prev) * parseFloat(current);
+        break;
+      case "/":
+        result = parseFloat(prev) / parseFloat(current);
+        break;
+      case "%":
+        result = parseFloat(prev) % parseFloat(current);
+        break;
+      default:
+        return;
+    }
+    setCurrent(result);
+    setPrev(result);
+    setOperation(null);
+  }
+
+  return (
+    <>
+      <div
+        id="body"
+        className="h-screen w-full bg-slate-400 flex items-center justify-center font-Lexend"
+      >
+        <div
+          id="calculator"
+          className="w-96 bg-white shadow-xl rounded-xl px-4 py-4"
+        >
+          <div id="output" className="w-full h-32 bg-slate-300 rounded-lg">
+            <div id="previous" className="text-right mx-2 text-xl">
+              {prev}
+            </div>
+            <div
+              id="current"
+              className="text-right text-3xl mx-2 font-semibold"
+            >
+              {current}
+            </div>
+          </div>
+          <div id="buttons" className="flex gap-3 w-full flex-col">
+            <div id="row-1" className="flex flex-row gap-3 w-full mt-10">
+              <Specialbtn num="C" onClick={() => setCurrent(0)} />
+              <Specialbtn num="AC" onClick={clearDisplay} />
+              <Specialbtn num="%" onClick={() => addendToDisplay("%")} />
+              <Specialbtn num="/" onClick={() => addendToDisplay("/")} />
+            </div>
+            <div id="row-2" className="flex flex-row gap-3 w-full">
+              <Numbtn num="7" onClick={() => addendToDisplay("7")} />
+              <Numbtn num="8" onClick={() => addendToDisplay("8")} />
+              <Numbtn num="9" onClick={() => addendToDisplay("9")} />
+              <Specialbtn num="X" onClick={() => addendToDisplay("X")} />
+            </div>
+            <div id="row-3" className="flex flex-row gap-3 w-full">
+              <Numbtn num="4" onClick={() => addendToDisplay("4")} />
+              <Numbtn num="5" onClick={() => addendToDisplay("5")} />
+              <Numbtn num="6" onClick={() => addendToDisplay("6")} />
+              <Specialbtn num="-" onClick={() => addendToDisplay("-")} />
+            </div>
+            <div id="row-4" className="flex flex-row gap-3 w-full">
+              <Numbtn num="1" onClick={() => addendToDisplay("1")} />
+              <Numbtn num="2" onClick={() => addendToDisplay("2")} />
+              <Numbtn num="3" onClick={() => addendToDisplay("3")} />
+              <Specialbtn num="+" onClick={() => addendToDisplay("+")} />
+            </div>
+            <div id="row-5" className="flex flex-row gap-3 w-full">
+              <Numbtn num="." onClick={() => addendToDisplay(".")} />
+              <Numbtn num="0" onClick={() => addendToDisplay("0")} />
+              <Equalbtn onClick={calculateResult} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;

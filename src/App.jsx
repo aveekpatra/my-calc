@@ -69,7 +69,7 @@ function App() {
     <>
       <div
         id="body"
-        className="h-screen w-full bg-slate-400 flex items-center justify-center font-Lexend"
+        className="h-screen w-full bg-indigo-400 flex items-center justify-center font-Lexend"
       >
         <div
           id="history"

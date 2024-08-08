@@ -52,6 +52,15 @@ function App() {
     setOperation(null);
   }
 
+  function toogleSidebar() {
+    const sidebar = document.querySelector("#history");
+    if (sidebar.style.left == "-16rem") {
+      sidebar.style.left = "0rem";
+    } else {
+      sidebar.style.left = "-16rem";
+    }
+  }
+
   return (
     <>
       <div
@@ -59,10 +68,34 @@ function App() {
         className="h-screen w-full bg-slate-400 flex items-center justify-center font-Lexend"
       >
         <div
+          id="history"
+          className="bg-white rounded-r-xl shadow-lg fixed -left-64 w-64 h-screen duration-200 ease-in-out"
+        ></div>
+        <button
+          className="bg-slate-200 rounded-xl flex top-2 right-2 fixed p-2 px-4"
+          onClick={toogleSidebar}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+            />
+          </svg>
+          History
+        </button>
+        <div
           id="calculator"
           className="w-96 bg-white shadow-xl rounded-xl px-4 py-4"
         >
-          <div id="output" className="w-full h-32 bg-slate-300 rounded-lg">
+          <div id="output" className="w-full h-24 bg-slate-300 rounded-lg">
             <div id="previous" className="text-right mx-2 text-xl">
               {prev}
             </div>

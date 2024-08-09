@@ -56,9 +56,11 @@ function App() {
     setHist((hist) => [...hist, resultStr]);
   }
 
-  function toogleSidebar() {
-    const sidebar = document.querySelector("#history");
-    if (sidebar.style.left === "-18rem") {
+  function toggleSidebar() {
+    const sidebar = document.getElementById("history");
+    sidebar.classList.toggle("visible")
+
+    if (sidebar.classList.contains("visible")) {
       sidebar.style.left = "0rem";
     } else {
       sidebar.style.left = "-18rem";
@@ -83,7 +85,7 @@ function App() {
         </div>
         <button
           className="bg-slate-200 rounded-xl flex top-3 right-3 fixed p-2 px-4"
-          onClick={toogleSidebar}
+          onClick={toggleSidebar}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

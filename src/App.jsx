@@ -48,8 +48,17 @@ function App() {
       default:
         return;
     }
-    setCurrent(result);
-    setPrev(result);
+
+    if (isNaN(result)) {
+      setCurrent("Invalid operation!!!");
+      setPrev(0);
+      result = "Invalid";
+    } else {
+      setCurrent(result);
+      setPrev(result);
+    }
+    // setCurrent(result);
+    // setPrev(result);
     setOperation(null);
 
     let resultStr = `${prev} ${operation} ${current} = ${result}`;
@@ -58,7 +67,7 @@ function App() {
 
   function toggleSidebar() {
     const sidebar = document.getElementById("history");
-    sidebar.classList.toggle("visible")
+    sidebar.classList.toggle("visible");
 
     if (sidebar.classList.contains("visible")) {
       sidebar.style.left = "0rem";
@@ -79,7 +88,9 @@ function App() {
         >
           <ul>
             {hist.map((histItem, index) => (
-              <li key={index} className="m-2 bg-slate-300 p-2 rounded-lg">{histItem}</li>
+              <li key={index} className="m-2 bg-slate-300 p-2 rounded-lg">
+                {histItem}
+              </li>
             ))}
           </ul>
         </div>
